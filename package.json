@@ -1,0 +1,19 @@
+{
+  "name": "crypto-scrape",
+  "version": "1.0.0",
+  "description": "Web scraper.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/desertidaho/crypto-scrape.git"
+  },
+  "author": "Brett Wilcox",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/desertidaho/crypto-scrape/issues"
+  },
+  "homepage": "https://github.com/desertidaho/crypto-scrape#readme"
+}
