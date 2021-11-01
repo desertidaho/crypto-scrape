@@ -1,32 +1,45 @@
 const PORT = 8000
-const express = require('express')
 const axios = require('axios')
 const cheerio = require('cheerio')
-
+const express = require('express')
 const app = express()
+const cors = require('cors')
+app.use(cors())
 
-const articles = []
+const url = 'https://www.zerohedge.com/'
 
-app.get('/', (req, res) => {
-    res.json('Welcome to my crypto news api')
+app.get('/', function (req, res) {
+    res.json('This is my webscraper')
 })
 
-app.get('/news', (req, res) => {
-    axios.get('https://www.theguardian.com/money/cryptocurrency')
-    .then((response) => {
-        const html = response.data
-        const $ = cheerio.load(html)
+app.get('/results', (req, res) => {
+    axios(url)
+        .then(response => {
+            const html = response.data
+            const $ = cheerio.load(html)
+            const articles = []
 
-        $('a:contain("cryptocurrency")', html).each(function () {
-            const title = $(this).text()
-            const url = $(this).attr('href')
-            articles.push({
-                title,
-                url
+            $('h2', html).each(function () { 
+                const title = $(this).text()
+                const url = $(this).find('a').attr('href')
+                if (title.includes("Bitcoin") || 
+                    title.includes("bitcoin") || 
+                    title.includes("Cryptocurrency") || 
+                    title.includes("cryptocurrency") || 
+                    title.includes("Crypto") || 
+                    title.includes("crypto") || 
+                    title.includes("Digital currency") || 
+                    title.includes("digital currency")) {
+                    articles.push({
+                    title,
+                    url
+                    })
+                }
             })
-        })
-        res.json(articles)
-    }).catch((err) => console.log(err))
+            res.json(articles)
+        }).catch(err => console.log(err))
+
 })
+
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
