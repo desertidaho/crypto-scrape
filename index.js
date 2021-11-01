@@ -9,7 +9,7 @@ app.use(cors())
 const url = 'https://www.zerohedge.com/'
 
 app.get('/', function (req, res) {
-    res.json('This is my webscraper')
+    res.json('This is my crypto-webscraper')
 })
 
 app.get('/results', (req, res) => {
